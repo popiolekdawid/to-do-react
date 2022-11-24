@@ -14,6 +14,15 @@ function App(props) {
     setTasks(remainingTasks);
   }
   
+  function editTask(id, newName) {
+    const editedTaskList = tasks.map((task) => {
+      if (id === task.id) { //if this task has the same ID as the edited task
+        return {...task, name: newName}
+      }
+      return task;
+    });
+    setTasks(editedTaskList);
+  }
   
   function toggleTaskCompleted(id) {
     const updatedTasks = tasks.map((task) => {
@@ -26,16 +35,16 @@ function App(props) {
   }
   
   const taskList = tasks.map((task) => (
-      <Todo 
-        id={task.id}
-        name={task.name} 
-        completed={task.completed}
-        key={task.id}
-        toggleTaskCompleted={toggleTaskCompleted}
-        deleteTask={deleteTask}
-      />
-    )
-  );
+    <Todo 
+      id={task.id}
+      name={task.name} 
+      completed={task.completed}
+      key={task.id}
+      toggleTaskCompleted={toggleTaskCompleted}
+      deleteTask={deleteTask}
+      editTask={editTask}
+    />
+  ));
 
   function addTask(name) {
     const newTask = { id: `todo-${nanoid()}`, name, completed: false };
